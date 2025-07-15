@@ -1,0 +1,196 @@
+/* ESTILOS GLOBALES */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("https://i.imgur.com/goOtaGT.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 2rem;
+   padding-bottom: 60px;
+}
+
+/* HEADER */
+header {
+  text-transform: uppercase;
+  text-align: center;
+  text-align: center;
+ height: 30px;
+ margin-bottom: 10px;
+ padding-bottom: 25px;
+  width: 100%;
+  background-color: rgb(52 218 146 / 69%);
+  color: white;
+  font-size: 1.3rem;
+  padding-top: 10px;
+}
+
+/* FORMULARIO */
+#form {
+  display: grid;
+  place-items: center;
+  padding-top: 20px;
+  gap: 10px;
+}
+
+select{
+  border-radius: 6px;
+}
+
+form label {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="checkbox"],
+form button {
+  margin-bottom: 10px;
+  padding: 0.5em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+form button {
+  background-color: #1a1a1a;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: rgb(52 218 146 / 69%);
+}
+
+/* LISTA */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  gap: 20px;
+}
+
+main{
+      height: 85%;
+    justify-items: center;
+    justify-content: center;
+    width: 700px;
+    background-color: #282626ad;
+
+}
+
+#imgPD{
+      height: 350;
+    width: 350;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#pDesc{
+
+    font-size: larger;
+    margin-bottom: 15px;
+}
+#pPrice{
+font-size: x-large;
+    color: #5fffa4;
+    margin-bottom: 10px;
+
+}
+
+ul li {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  background-color: #181818;
+  color: white;
+  box-shadow: 0 0 10px #00000070;
+  transition: transform 0.3s;
+}
+
+ul li:hover {
+  transform: scale(1.02);
+}
+
+ul li img {
+  display: block;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 10px;
+}
+
+ul li strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  color: #5fffa4e6;
+}
+
+ul li p {
+  margin: 5px 0;
+}
+
+#footertext{
+    position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(15, 15, 15, 0.9);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-family: system-ui, sans-serif;
+  z-index: 1000;
+}
+
+ul li p:first-of-type {
+  font-weight: bold;
+  color: #5fffa4e6;
+}
+
+/* ENLACES */
+a {
+  color: #5fffa4e6;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #5fffa4;
+}
+
+/* BOTONES GENERALES */
+button {
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #5fffa4e6;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+

@@ -1,30 +1,40 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('form');
+  const form = document.getElementById('productForm');
   if (!form) {
-    console.error('No se encontró el formulario con id="form"');
+    console.error('No se encontró el formulario con id="productForm"');
     return;
   }
 
   form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-  
+    event.preventDefault();
+
+    console.log("formulario recibido y enviado");
+
     const formData = new FormData(event.target);
     const productData = {};
-  
+
     formData.forEach((value, key) => {
       productData[key] = value;
     });
-  
-    console.log('Datos del formulario:', productData);
-  
-    if (productData.thumbnails && productData.thumbnails.indexOf(',') !== -1) {
-      productData.thumbnails = productData.thumbnails.split(',');
+
+    // Convertir thumbnails a array
+    if (productData.thumbnails) {
+      if (productData.thumbnails.indexOf(',') !== -1) {
+        productData.thumbnails = productData.thumbnails.split(',').map(s => s.trim());
+      } else {
+        productData.thumbnails = [productData.thumbnails];
+      }
     } else {
-      productData.thumbnails = [productData.thumbnails];
+      productData.thumbnails = [];
     }
-  
+
+    productData.price = Number(productData.price);
+    productData.stock = Number(productData.stock);
+
     try {
+      console.log("Datos del producto a enviar:", productData);
+
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
@@ -32,29 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify(productData),
       });
-  
+
       if (response.ok) {
         const newProduct = await response.json();
-        console.log('Producto agregado correctamente');
-        console.log(newProduct);
+        console.log('Producto agregado:', newProduct);
+         window.location.reload()
+        
       } else {
-        const error = await response.json();
-        console.log('Error al agregar el producto: ' + error.error);
+        
+        const text = await response.text();
+        try {
+          const json = JSON.parse(text);
+          console.error('Error al agregar el producto:', json.error);
+          alert('Error: ' + json.error);
+        } catch (err) {
+          console.error('Respuesta no válida:', text);
+          alert('Error desconocido al agregar el producto');
+        }
       }
     } catch (error) {
-      console.log('Hubo un error al intentar agregar el producto');
+      alert('Hubo un error al intentar agregar el producto');
       console.error(error);
     }
 
-    
-    socket.emit("new-product", product)
-    form.reset()
+    form.reset();
   });
-});
 
-
-const socket = io();
-
-socket.on('message', (data) => {
-  console.log("mensaje del servidor:" + data)
 });

@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/css/styles.css" />
+
+
+<h1>Carrito</h1>
+
+{{#if cart.products.length}}
+  <ul>
+    {{#each cart.products}}
+      <li style="margin-bottom: 20px;">
+        {{#if this.product.thumbnails}}
+          <img style="width:80px; heigth: 80px;align-items: center; display: flex;" 
+          src="{{this.product.thumbnails.[0]}}" alt="{{this.product.title}}" style="height: 100px; width: 100px;">
+        {{else}}
+          <p>NO IMAGE!</p>
+        {{/if}}
+        <strong>{{this.product.title}}</strong><br>
+        Price: ${{this.product.price}}<br>
+        Quantity: {{this.quantity}}<br>
+        
+        <form action="/api/carts/{{../cart._id}}/product/{{this.product._id}}/increase" method="POST" style="display: inline;">
+          <button type="submit">+</button>
+        </form>
+
+        <form action="/api/carts/{{../cart._id}}/product/{{this.product._id}}/decrease" method="POST" style="display: inline;">
+          <button type="submit">-</button>
+        </form>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>El carrito está vacío.</p>
+{{/if}}

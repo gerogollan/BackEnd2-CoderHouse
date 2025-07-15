@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/css/styles.css" />
+
+
+<main>
+<h1>{{product.title}}</h1>
+<h4>ID:{{product._id}}</h4>
+
+<img id="imgPD" style="height: 300px; width: 300px;" src="{{product.thumbnails}}" alt="{{product.title}}" />
+
+<p id="pDesc">{{product.description}}</p>
+<p id="pPrice">Precio: ${{product.price}}</p>
+
+<form id="addToCartForm" data-pid="{{product._id}}">
+  <label for="cid">ID del carrito:</label>
+  <input type="text" name="cid" id="cid" required placeholder="Ingresa tu CID" />
+
+  <button type="submit">Agregar al carrito</button>
+</form>
+
+</main>
+
+<script src="/ProductDetailLogic.js"></script>

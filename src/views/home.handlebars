@@ -1,27 +1,68 @@
+<form id="productForm">
+  <input type="text" name="title" placeholder="Título" required>
+  <input type="text" name="description" placeholder="Descripción">
+  <input type="number" name="price" placeholder="Precio" required>
+  <input type="text" name="thumbnails" placeholder="Imagen (URL), separadas por coma">
+  <input type="text" name="code" placeholder="Código" required>
+  <input type="number" name="stock" placeholder="Stock" required>
+  <input type="text" name="category" placeholder="Categoría">
+  <button type="submit">Agregar producto</button>
+</form>
+
+
+
 <h1>PRODUCT LIST</h1>
 
-<ul>
-    {{#if products}}
-    <p>Total de productos: {{products.length}}</p>
-    {{#each products}}
-    <li>
-        {{#if products.thumbnail}}
-        <img src="{{thumbnail}}" alt="img" width="20px" height="20px">
+{{#if products.docs}}
+  <p>Total de productos: {{products.totalDocs}}</p>
+  <ul>
+       
+
+       <form id="sortForm" method="GET" action="/" style="margin-bottom: 20px;">
+  <label for="sort">Ordenar por precio:</label>
+  <select name="sort" id="sort" onchange="this.form.submit()">
+    <option value="">-- Seleccionar --</option>
+    <option value="asc" {{#if (eq query.sort "asc")}}selected{{/if}}>Menor a mayor</option>
+    <option value="desc" {{#if (eq query.sort "desc")}}selected{{/if}}>Mayor a menor</option>
+  </select>
+  <!-- Mantener página 1 al cambiar orden -->
+  <input type="hidden" name="page" value="1">
+</form>
+
+
+
+
+    {{#each products.docs}}
+      <li>
+        {{#if thumbnails}}
+        <a href="/product/{{this._id}}">
+          <img src="{{thumbnails.[0]}}" alt="img" width="50px" height="50px">
+        </a>
         {{else}}
-        <p>NO IMAGEN</p>
+          <p>NO IMAGEN</p>
         {{/if}}
-        
-        
-        <strong> {{title}}</strong>
-              <p>{{price}}</p>
-              <p>{{description}}</p>
-    </li>
+        <strong>{{title}}</strong>
+        <p>${{price}}</p>
+        <p>{{description}}</p>
+      </li>
+      
     {{/each}}
+  </ul>
 
-    {{else}}
-    <p>No han llegado productos</p>
+  <div style="margin-top: 20px;">
+    {{#if products.hasPrevPage}}
+      <a href="/?page={{products.prevPage}}">  ⬅ Anterior</a>
     {{/if}}
-</ul>
 
+    <span style="margin: 0 10px;">Página {{products.page}}</span>
 
-<script src="/socket.io/socket.io.js"></script>
+    {{#if products.hasNextPage}}
+      <a href="/?page={{products.nextPage}}"> ➡ Siguiente</a>
+    {{/if}}
+  </div>
+
+{{else}}
+  <p style="padding: 30px;">No hay productos cargados, ingresalos desde el form en la página principal !</p>
+{{/if}}
+
+<script src="/main.js"></script>
